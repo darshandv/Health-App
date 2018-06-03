@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "771144427660",
+    "firebase_url": "https://healthieapp.firebaseio.com",
+    "project_id": "healthieapp",
+    "storage_bucket": "healthieapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771144427660:android:eed3d96a12084392",
+        "android_client_info": {
+          "package_name": "com.myapp.darshan.healthie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771144427660-769g73b7h7tq16l50s7bcsg5o7ovmbsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myapp.darshan.healthie",
+            "certificate_hash": "9c81b9119dc32a5822373f56b5448c2626fc7691"
+          }
+        },
+        {
+          "client_id": "771144427660-89b0en9imepifcm1vvlfe1iq046qbige.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1GLCKh5vLJ4TLF0VPJHiBqPSzsBf9poM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771144427660-89b0en9imepifcm1vvlfe1iq046qbige.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

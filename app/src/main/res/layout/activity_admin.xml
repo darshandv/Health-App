@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|center"
+            android:text="You hacked it brother!"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/input_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Now you can tip me. :)" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/sign_out"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_sign_out"
+        android:background="@color/btn_logut_bg"/>
+
+</LinearLayout>
