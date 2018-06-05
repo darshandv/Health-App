@@ -1,6 +1,12 @@
 package com.myapp.darshan.healthie.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -93,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"You received : "+tip_data,
                         Toast.LENGTH_SHORT).show();
+
+                createNotification(tip_data);
             }
 
             @Override
@@ -328,6 +336,26 @@ public class MainActivity extends AppCompatActivity {
 //            txtRegId.setText("Firebase Reg Id: " + regId);
 //        else
 //            txtRegId.setText("Firebase Reg Id is not received yet!");
+    }
+
+    private void createNotification(String messageBody) {
+        Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+        pushNotification.putExtra("message", messageBody);
+
+        PendingIntent resultIntent = PendingIntent.getActivity(this , 0, pushNotification, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri notificationSoundURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder mNotificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Healthie")
+                .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setSound(notificationSoundURI)
+                .setContentIntent(resultIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, mNotificationBuilder.build());
     }
 
     @Override

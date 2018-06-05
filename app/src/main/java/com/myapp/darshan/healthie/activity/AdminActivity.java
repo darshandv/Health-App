@@ -1,8 +1,15 @@
 package com.myapp.darshan.healthie.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapp.darshan.healthie.R;
+import com.myapp.darshan.healthie.app.Config;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -87,6 +95,8 @@ public class AdminActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"You received : "+tip_data,
                         Toast.LENGTH_SHORT).show();
+
+                createNotification(tip_data);
             }
 
             @Override
@@ -107,6 +117,26 @@ public class AdminActivity extends AppCompatActivity {
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
 
+    }
+
+    private void createNotification(String messageBody) {
+        Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+        pushNotification.putExtra("message", messageBody);
+
+        PendingIntent resultIntent = PendingIntent.getActivity(this , 0, pushNotification, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri notificationSoundURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder mNotificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Healthie")
+                .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setSound(notificationSoundURI)
+                .setContentIntent(resultIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, mNotificationBuilder.build());
     }
 
     public void signOut()
