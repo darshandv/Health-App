@@ -30,4 +30,6 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="prompt_password">Prompt password</string>
+    <string name="sharedPreferenceForTip">com.myapp.darshan.healthie.activity.sharedPrefTip</string>
+    <string name="saved_high_score_default_key">Healthie_app_tip</string>
 </resources>

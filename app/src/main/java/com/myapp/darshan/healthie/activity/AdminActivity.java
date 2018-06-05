@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -38,7 +39,10 @@ public class AdminActivity extends AppCompatActivity {
     private Button btn_sign_out;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
-    DatabaseReference mDatabase;
+    private DatabaseReference mDatabase;
+    private Context context;
+    private String test;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,10 @@ public class AdminActivity extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Tips");
+
+        context = getApplicationContext();
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.sharedPreferenceForTip), Context.MODE_PRIVATE);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -93,10 +101,17 @@ public class AdminActivity extends AppCompatActivity {
 
                 tip_data = dataSnapshot.getValue(String.class);
 
-                Toast.makeText(getApplicationContext(),"You received : "+tip_data,
-                        Toast.LENGTH_SHORT).show();
+                test = sharedPref.getString(getString(R.string.saved_high_score_default_key), "No name defined");
 
-                createNotification(tip_data);
+                Toast.makeText(getApplicationContext(),"You received : "+test,
+                        Toast.LENGTH_SHORT).show();
+                if (!tip_data.equals(test)){
+                    createNotification(tip_data);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(getString(R.string.saved_high_score_default_key), tip_data);
+                    editor.commit();
+                }
+
             }
 
             @Override

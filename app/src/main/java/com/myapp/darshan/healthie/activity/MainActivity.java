@@ -53,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private String isadmin;
-    DatabaseReference mDatabase;
     String tip_data;
+    private DatabaseReference mDatabase;
+    private Context context;
+    private String test;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Tips");
+
+        context = getApplicationContext();
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.sharedPreferenceForTip), Context.MODE_PRIVATE);
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -97,10 +104,17 @@ public class MainActivity extends AppCompatActivity {
 
                 tip_data = dataSnapshot.getValue(String.class);
 
-                Toast.makeText(getApplicationContext(),"You received : "+tip_data,
-                        Toast.LENGTH_SHORT).show();
+                test = sharedPref.getString(getString(R.string.saved_high_score_default_key), "No name defined");
 
-                createNotification(tip_data);
+                Toast.makeText(getApplicationContext(),"You received : "+test,
+                        Toast.LENGTH_SHORT).show();
+                if (!tip_data.equals(test)){
+                    createNotification(tip_data);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(getString(R.string.saved_high_score_default_key), tip_data);
+                    editor.commit();
+                }
+
             }
 
             @Override
