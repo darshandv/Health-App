@@ -10,6 +10,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MyFloatingButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/btn_logut_bg</item>
+    </style>
+
     <!--<style name="Theme">30</style>-->
 
 </resources>
