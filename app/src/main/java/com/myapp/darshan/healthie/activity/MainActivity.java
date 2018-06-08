@@ -1,5 +1,6 @@
 package com.myapp.darshan.healthie.activity;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -39,6 +40,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.myapp.darshan.healthie.R;
 import com.myapp.darshan.healthie.app.Config;
 import com.myapp.darshan.healthie.util.NotificationUtils;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -123,6 +127,23 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("Failure", "Failed to read value.", error.toException());
             }
         });
+
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());
+
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 50);
+        cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
+        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+
+        Intent intent = new Intent(MainActivity.this, ReceiverAll.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        am.setRepeating(am.RTC_WAKEUP, cal.getTimeInMillis(), am.INTERVAL_DAY, pendingIntent);
 
         btnChangeEmail = (Button) findViewById(R.id.change_email_button);
         btnChangePassword = (Button) findViewById(R.id.change_password_button);

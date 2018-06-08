@@ -1,5 +1,6 @@
 package com.myapp.darshan.healthie.activity;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,6 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapp.darshan.healthie.R;
 import com.myapp.darshan.healthie.app.Config;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -121,7 +125,22 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());
 
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+        cal.set(Calendar.HOUR_OF_DAY, 9);
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
+        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+
+        Intent intent = new Intent(AdminActivity.this, Receiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(AdminActivity.this, 0, intent, 0);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        am.setRepeating(am.RTC_WAKEUP, cal.getTimeInMillis(), am.INTERVAL_DAY, pendingIntent);
 
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
