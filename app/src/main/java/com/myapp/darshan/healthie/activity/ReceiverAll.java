@@ -43,7 +43,7 @@ public class ReceiverAll extends BroadcastReceiver {
 
                 test = sharedPref.getString(String.valueOf(R.string.saved_high_score_default_key), "No name defined");
 
-                Toast.makeText(context,"You received : "+test,
+                Toast.makeText(context,test,
                         Toast.LENGTH_SHORT).show();
                 if (!tip_data.equals(test)){
                     createNotification(context, tip_data);

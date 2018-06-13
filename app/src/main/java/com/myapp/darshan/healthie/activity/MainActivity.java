@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 test = sharedPref.getString(getString(R.string.saved_high_score_default_key), "No name defined");
 
-                Toast.makeText(getApplicationContext(),"You received : "+test,
+                Toast.makeText(getApplicationContext(),test,
                         Toast.LENGTH_SHORT).show();
                 if (!tip_data.equals(test)){
                     createNotification(tip_data);
@@ -133,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar cal = new GregorianCalendar();
         cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, 20);
-        cal.set(Calendar.MINUTE, 50);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 52);
         cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
         cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
         cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
